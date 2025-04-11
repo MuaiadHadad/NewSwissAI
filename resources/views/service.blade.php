@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>SwissAI</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link href="{{ asset('/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+    <link href="{{ asset('/vendor/aos/aos.css')}}" rel="stylesheet">
+    <link href="{{ asset('/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="{{ asset('/css/main.css')}}" rel="stylesheet">
+
+  <!-- =======================================================
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="service-details-page">
+
+<header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+        <a href="{{ route('index') }}" class="logo d-flex align-items-center me-auto">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <img class="logo" src="{{ asset('/img/logo.png')}}" alt="Logo">
+            <h1 class="sitename" style="color: #8f1313">S</h1>
+            <h1 class="sitename" style="color: black">wiss</h1>
+            <h1 class="sitename" style="color: #8f1313">AI</h1>
+        </a>
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="{{ route('index') }}" >Home</a></li>
+                <li><a href="{{ route('about') }}"><span>About Us</span></a>
+                </li>
+                <li><a class="active" href="{{ route('service') }}">Services</a></li>
+                <li><a href="{{ route('blog') }}">Blog</a></li>
+                <li><a href="{{ route('careers') }}">Careers</a></li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+        <a class="btn-getstarted" href="{{ route('contact') }}">Contact</a>
+    </div>
+</header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">Services</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="{{ route('index') }}">Home</a></li>
+            <li class="current">Services</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+      <section id="service-details" class="service-details section">
+          <div class="container">
+              <div class="row gy-4">
+                  <!-- Sidebar with list of services -->
+                  <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                      <div class="services-list">
+                          <a href="javascript:void(0)" class="active" onclick="showService('custom-ai')">Custom AI Development</a>
+                          <a href="javascript:void(0)" onclick="showService('analytics')">AI-Powered Analytics</a>
+                          <a href="javascript:void(0)" onclick="showService('chatbots')">AI-Powered Chatbots</a>
+                          <a href="javascript:void(0)" onclick="showService('fine-tuning')">AI Model Fine-Tuning</a>
+                          <a href="javascript:void(0)" onclick="showService('ml-consulting')">Machine Learning Consulting</a>
+                          <a href="javascript:void(0)" onclick="showService( 'security')">AI Security & Compliance</a>
+                          <a href="javascript:void(0)" onclick="showService('automation')">Automation Solutions</a>
+                          <a href="javascript:void(0)" onclick="showService('strategy')">AI Consulting & Strategy</a>
+                          <a href="javascript:void(0)" onclick="showService('custom-solutions')">Custom AI Solutions</a>
+                      </div>
+
+                      <h4>Explore Our AI Services</h4>
+                      <p>We offer a complete suite of AI-driven services tailored to your business goals, from custom solutions to secure and ethical deployment.</p>
+                  </div>
+
+                  <!-- Detailed content of the selected service -->
+                  <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                      <div id="service-content" >
+                          <img src="{{ asset('img/services.jpg') }}" alt="Highlighted Service" class="img-fluid services-img">
+                          <h3>Custom AI Development</h3>
+                          <p>We build AI systems from the ground up, tailored to your unique business processes and data, enabling automation and intelligent decision-making.</p>
+                          <ul>
+                              <li><i class="bi bi-check-circle"></i> End-to-end AI solution architecture.</li>
+                              <li><i class="bi bi-check-circle"></i> Custom model training and deployment.</li>
+                              <li><i class="bi bi-check-circle"></i> Integration with existing software ecosystems.</li>
+                          </ul>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </section>
+
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+      <div class="container footer-top">
+          <div class="row gy-4">
+              <div class="col-lg-4 col-md-6 footer-about">
+                  <a href="index.html" class="logo d-flex align-items-center">
+                      <span class="sitename" style="color: #8f1313">S</span>
+                      <span class="sitename" style="color: black">wiss</span>
+                      <span class="sitename" style="color: #8f1313">AI</span>
+                  </a>
+                  <div class="footer-contact pt-3">
+                      <p>Rue de l'Innovation 12</p>
+                      <p>Geneva, Switzerland</p>
+                      <p class="mt-3"><strong>Phone:</strong> <span>+41 22 123 45 67</span></p>
+                      <p><strong>Email:</strong> <span>contact@youraiagency.com</span></p>
+                  </div>
+                  <div class="social-links d-flex mt-4">
+                      <a href=""><i class="bi bi-twitter-x"></i></a>
+                      <a href=""><i class="bi bi-facebook"></i></a>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
+              </div>
+
+              <div class="col-lg-2 col-md-3 footer-links">
+                  <h4>Quick Links</h4>
+                  <ul>
+                      <li><a href="{{ route('index') }}">Home</a></li>
+                      <li><a href="{{ route('about') }}">About Us</a></li>
+                      <li><a href="{{ route('service') }}">Services</a></li>
+                      <li><a href="{{ route('blog') }}">Blog</a></li>
+                      <li><a href="{{ route('careers') }}">Careers</a></li>
+                      <li><a href="{{ route('contact') }}">Contact us</a></li>
+                  </ul>
+              </div>
+
+              <div class="col-lg-2 col-md-3 footer-links">
+                  <h4>Our Services</h4>
+                  <ul>
+                      <li><a href="#">Custom AI Development</a></li>
+                      <li><a href="#">AI Chatbots</a></li>
+                      <li><a href="#">Machine Learning Consulting</a></li>
+                      <li><a href="#">AI-Powered Analytics</a></li>
+                      <li><a href="#">Automation Solutions</a></li>
+                  </ul>
+              </div>
+
+              <div class="col-lg-4 col-md-12 footer-newsletter">
+                  <h4>Stay Updated</h4>
+                  <p>Subscribe to receive the latest updates on AI innovations, ethical practices, and new service offerings.</p>
+                  <form action="forms/newsletter.php" method="post" class="php-email-form">
+                      <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+                      <div class="loading">Loading</div>
+                      <div class="error-message"></div>
+                      <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+                  </form>
+              </div>
+
+
+          </div>
+      </div>
+
+      <div class="container copyright text-center mt-4">
+          <p>© <span>Copyright</span> <strong class="px-1 sitename">,</strong> <span>All Rights Reserved</span></p>
+
+      </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('/vendor/php-email-form/validate.js') }}"></script>
+  <script src="{{ asset('/vendor/aos/aos.js') }}"></script>
+  <script src="{{ asset('/vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ asset('/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
+  <script src="{{ asset('/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+  <script src="{{ asset('/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+  <script src="{{ asset('/vendor/waypoints/noframework.waypoints.js') }}"></script>
+  <script src="{{ asset('/vendor/swiper/swiper-bundle.min.js') }}"></script>
+
+
+  <!-- Main JS File -->
+  <script src="{{ asset('/js/main.js')}}"></script>
+
+</body>
+
+</html>
