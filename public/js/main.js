@@ -160,6 +160,22 @@
    */
   new PureCounter();
 
+    const path = window.location.pathname;
+    const routes = {
+        '/': 'index',
+        '/about': 'about',
+        '/service': 'service',
+        '/blog': 'blog',
+        '/careers': 'careers',
+        '/contact': 'contact',
+    };
+
+    const currentRoute = routes[path] || '';
+
+    document.querySelectorAll('a.nav-link').forEach(link => {
+        const routeName = link.getAttribute('data-nav');
+        link.classList.toggle('active', routeName === currentRoute);
+    });
   /**
    * Animate the skills items on reveal
    */
@@ -361,12 +377,45 @@ document.addEventListener('DOMContentLoaded', loadServiceFromURL);
         const step = steps[stepIndex];
         const requiredInputs = step.querySelectorAll('[required]');
         const checkGroups = step.querySelectorAll('.custom-check');
+        function isValidURL(url) {
+            const pattern = new RegExp('^(https?:\\/\\/)?' + // protocolo opcional
+                '((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|' + // domínio
+                'localhost|' + // localhost
+                '\\d{1,3}(\\.\\d{1,3}){3})' + // ou IP
+                '(\\:\\d+)?(\\/[-a-zA-Z\\d%_.~+]*)*' + // porta e caminho
+                '(\\?[;&a-zA-Z\\d%_.~+=-]*)?' + // query string
+                '(\\#[-a-zA-Z\\d_]*)?$', 'i'); // fragmento
+            return !!pattern.test(url);
+        }
 
         let valid = true;
 
+        // Regex simples para email válido
+        function isValidEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
         // Validar campos obrigatórios
         requiredInputs.forEach(input => {
-            if (!input.value.trim()) {
+            const value = input.value.trim();
+
+            // Campos obrigatórios
+            if (!value) {
+                input.classList.add('is-invalid');
+                valid = false;
+            } else if (["linkedin", "github"].includes(input.name) && !isValidURL(value)) {
+                input.classList.add('is-invalid');
+                valid = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        });
+        const optionalInputs = step.querySelectorAll('input[name="portfolio"], input[name="website"]');
+
+        optionalInputs.forEach(input => {
+            const value = input.value.trim();
+            if (value && !isValidURL(value)) {
                 input.classList.add('is-invalid');
                 valid = false;
             } else {
@@ -383,19 +432,51 @@ document.addEventListener('DOMContentLoaded', loadServiceFromURL);
             return acc;
         }, {});
 
+        const expertiseFeedback = document.getElementById('expertise-feedback');
         for (let name in grouped) {
             const group = grouped[name];
             const isAnyChecked = group.some(chk => chk.checked);
+
             if (!isAnyChecked) {
-                group.forEach(chk => chk.classList.add('is-invalid'));
+                //group.forEach(chk => chk.classList.add("is-invalid"));
+                if (expertiseFeedback) expertiseFeedback.style.display = "block";
                 valid = false;
             } else {
-                group.forEach(chk => chk.classList.remove('is-invalid'));
+                //group.forEach(chk => chk.classList.remove("is-invalid"));
+                if (expertiseFeedback) expertiseFeedback.style.display = "none";
+            }
+        }
+        const techFeedback = document.getElementById('tech-feedback');
+        const techCheckboxes = Array.from(step.querySelectorAll('input[name="tech[]"]'));
+
+        if (techCheckboxes.length) {
+            const techSelected = techCheckboxes.some(chk => chk.checked);
+            if (!techSelected) {
+                //techCheckboxes.forEach(chk => chk.classList.add('is-invalid'));
+                if (techFeedback) techFeedback.style.display = 'block';
+                valid = false;
+            } else {
+                //techCheckboxes.forEach(chk => chk.classList.remove('is-invalid'));
+                if (techFeedback) techFeedback.style.display = 'none';
+            }
+        }
+        const expFeedback = document.getElementById('exp-feedback');
+        const expCheckboxes = Array.from(step.querySelectorAll('input[name="exp[]"]'));
+        if (expCheckboxes.length) {
+            const expSelected = expCheckboxes.some(chk => chk.checked);
+            if (!expSelected) {
+                //techCheckboxes.forEach(chk => chk.classList.add('is-invalid'));
+                if (expFeedback) expFeedback.style.display = 'block';
+                valid = false;
+            } else {
+                //techCheckboxes.forEach(chk => chk.classList.remove('is-invalid'));
+                if (expFeedback) expFeedback.style.display = 'none';
             }
         }
 
         return valid;
     }
+
 
     document.addEventListener("DOMContentLoaded", () => {
         showStep(currentStep);
@@ -453,5 +534,158 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        // Bloquear teclas inválidas
+        input.addEventListener('keydown', function (e) {
+            const invalidKeys = ["e", "E", "+", "-", "."];
+            const allowedKeys = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
+
+            if (
+                invalidKeys.includes(e.key) ||
+                (!allowedKeys.includes(e.key) && isNaN(Number(e.key)))
+            ) {
+                e.preventDefault();
+            }
+
+            // Limita a 2 dígitos (permite apagar)
+            const isNumber = e.key >= '0' && e.key <= '9';
+            const isAllowed = allowedKeys.includes(e.key);
+            if (isNumber && this.value.length >= 2 && !this.selectionStart !== this.selectionEnd) {
+                e.preventDefault();
+            }
+        });
+
+        // Bloquear colagem inválida ou maior que 2 dígitos
+        input.addEventListener('paste', function (e) {
+            const pasteData = e.clipboardData.getData('text');
+            if (!/^\d{1,2}$/.test(pasteData)) {
+                e.preventDefault();
+            }
+        });
+
+        // Extra: limitar também no lado visual (para mobile/input scroll)
+        input.setAttribute('maxlength', '2');
+        input.setAttribute('min', '0');
+        input.setAttribute('max', '99');
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const phoneInput = document.querySelector("#phone");
+
+    if (phoneInput) {
+        const iti = window.intlTelInput(phoneInput, {
+            initialCountry: "", // detecta via IP
+            nationalMode: false, // permite digitar com código do país
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.20/js/utils.js",
+            geoIpLookup: callback => {
+                fetch("https://ipapi.co/json")
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("us"));
+            }
+        });
+
+
+        // Ao carregar a página, inserir código inicial
+        setTimeout(() => {
+            const dialCode = iti.getSelectedCountryData().dialCode;
+            phoneInput.value = '+' + dialCode +' ';
+        }, 300); // espera lib carregar corretamente
+
+        // Bloquear caracteres inválidos
+        phoneInput.addEventListener("keydown", function (e) {
+            const allowedKeys = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
+            if (
+                allowedKeys.includes(e.key) ||
+                (e.key >= "0" && e.key <= "9") ||
+                (e.key === "+" && this.selectionStart === 0)
+            ) {
+                return;
+            }
+            e.preventDefault();
+        });
+
+        phoneInput.addEventListener("paste", function (e) {
+            const pasted = e.clipboardData.getData("text");
+            if (!/^\+?[0-9]*$/.test(pasted)) {
+                e.preventDefault();
+            }
+        });
+
+        // Validação no submit
+        phoneInput.form.addEventListener("submit", function (e) {
+            if (!iti.isValidNumber()) {
+                phoneInput.classList.add("is-invalid");
+                e.preventDefault();
+            } else {
+                phoneInput.classList.remove("is-invalid");
+                phoneInput.value = iti.getNumber();
+            }
+        });
+    }
+});
+function setupPhoneInput() {
+    const phoneInput = document.querySelector("#phone");
+    if (!phoneInput || typeof window.intlTelInput !== "function") return;
+
+    const iti = window.intlTelInput(phoneInput, {
+        initialCountry: "",
+        nationalMode: false,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.20/js/utils.js",
+        geoIpLookup: callback => {
+            fetch("https://ipapi.co/json")
+                .then(res => res.json())
+                .then(data => callback(data.country_code))
+                .catch(() => callback("us"));
+        }
+    });
+
+    // Aguarda 200ms e insere o código do país
+    setTimeout(() => {
+        const dialCode = iti.getSelectedCountryData().dialCode;
+        if (phoneInput.value === "") {
+            phoneInput.value = "+" + dialCode;
+        }
+    }, 200);
+
+
+
+    // Bloquear letras e símbolos
+    phoneInput.addEventListener("keydown", function (e) {
+        const allowedKeys = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
+        if (
+            allowedKeys.includes(e.key) ||
+            (e.key >= "0" && e.key <= "9") ||
+            (e.key === "+" && this.selectionStart === 0)
+        ) return;
+        e.preventDefault();
+    });
+
+    phoneInput.addEventListener("paste", function (e) {
+        const pasted = e.clipboardData.getData("text");
+        if (!/^\+?[0-9]*$/.test(pasted)) {
+            e.preventDefault();
+        }
+    });
+
+    phoneInput.form.addEventListener("submit", function (e) {
+        if (!iti.isValidNumber()) {
+            phoneInput.classList.add("is-invalid");
+            e.preventDefault();
+        } else {
+            phoneInput.classList.remove("is-invalid");
+            phoneInput.value = iti.getNumber();
+        }
+    });
+}
+
+
+
 
 

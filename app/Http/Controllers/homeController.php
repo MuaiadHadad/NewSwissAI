@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\subscribes;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+
 
 class homeController  extends Controller
 {
@@ -65,6 +66,20 @@ class homeController  extends Controller
         $mostrarLogin = $ipAtual === $empresaIp;
 
         return view('apply');
+    }
+    public function subscribe(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Invalid email'], 422);
+        }
+
+        subscribes::create(['email' => $request->email]);
+
+        return redirect()->back()->with('success', 'Your request has been submitted successfully.');
     }
 
 }

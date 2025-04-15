@@ -569,7 +569,7 @@ h6 {
   color: var(--default-color);
 }
 
-.footer .footer-newsletter .newsletter-form input[type=email]:focus-visible {
+.footer .footer-newsletter .newsletter-form input[type=email]:focus-visible{
   outline: none;
 }
 
@@ -2281,6 +2281,7 @@ section,
 
 .contact .php-email-form input[type=text],
 .contact .php-email-form input[type=email],
+.contact .php-email-form input[type=number],
 .contact .php-email-form textarea {
   font-size: 14px;
   padding: 10px 15px;
@@ -2293,12 +2294,16 @@ section,
 
 .contact .php-email-form input[type=text]:focus,
 .contact .php-email-form input[type=email]:focus,
+.contact .php-email-form input[type=tel]:focus,
+.contact .php-email-form input[type=number]:focus,
 .contact .php-email-form textarea:focus {
   border-color: var(--accent-color);
 }
 
 .contact .php-email-form input[type=text]::placeholder,
 .contact .php-email-form input[type=email]::placeholder,
+.contact .php-email-form input[type=tel]::placeholder,
+.contact .php-email-form input[type=number]::placeholder,
 .contact .php-email-form textarea::placeholder {
   color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
@@ -2626,9 +2631,78 @@ section,
     box-shadow: 0 0 5px rgba(143, 19, 19, 0.3);
     outline: none;
 }
+select.form-select {
+    color: #000; /* cor normal */
+}
+
+select.form-select option:first-child {
+    color: #999 !important; /* cinzento claro tipo placeholder */
+}
+
+
 .is-invalid {
     border-color: #dc3545 !important;
     box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
 }
+select:required:invalid {
+    color: color-mix(in srgb, var(--default-color), transparent 70%);
+}
+option[value=""][disabled] {
+    display: none;
+}
+option {
+    color: black;
+}
+.iti {
+    position: relative;
+    display: inline-block;
+    width:100%}
+/* Estilo personalizado para o input de telefone */
+.styled-phone {
+    font-size: 14px;
+    padding: 10px 15px;
+    box-shadow: none;
+
+    border-radius: 0;
+    color: var(--default-color);
+    background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+    border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+}
+
+/* Também remove sombras ao focar */
+.styled-phone:focus {
+    box-shadow: none;
+    outline: none;
+}
+html.is-animating .transition-fade {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+html.is-rendering .transition-fade {
+    opacity: 1;
+}
+
+
+.logo-carousel {
+    display: flex;
+    width: max-content;
+    animation: scroll-logos 10s linear infinite;
+}
+
+.client-logo {
+    flex: 0 0 auto;
+    padding: 0 20px;
+}
+
+@keyframes scroll-logos {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+
 
 

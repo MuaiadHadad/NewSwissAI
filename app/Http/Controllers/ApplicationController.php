@@ -93,8 +93,8 @@ class ApplicationController extends Controller
             'email' => 'required|email',
             'country' => 'required',
             'timezone' => 'required',
-            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:5120',
-            'cert_upload' => 'nullable|file|mimes:pdf,doc,docx|max:5120',
+            'cv' => 'nullable|file|mimes:pdf|max:5120',
+            'cert_upload' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
         $app = new Application;

@@ -24,6 +24,10 @@
         "vue-tsc": "^2.2.4"
     },
     "dependencies": {
+        "@dogstudio/highway": "^2.2.1",
+        "@hotwired/turbo": "^8.0.13",
+        "@inertiajs/inertia": "^0.11.1",
+        "@inertiajs/inertia-vue3": "^0.6.0",
         "@inertiajs/vue3": "^2.0.0-beta.3",
         "@tailwindcss/vite": "^4.1.1",
         "@vitejs/plugin-vue": "^5.2.1",
@@ -35,6 +39,7 @@
         "lucide": "^0.468.0",
         "lucide-vue-next": "^0.468.0",
         "reka-ui": "^2.2.0",
+        "swup": "^4.8.1",
         "tailwind-merge": "^2.5.5",
         "tailwindcss": "^4.1.1",
         "tailwindcss-animate": "^1.0.7",
